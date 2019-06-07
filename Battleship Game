@@ -1,0 +1,133 @@
+/* Lissette Vallejo
+   Battleship program*/
+
+import java.util.Scanner;
+import java.security.SecureRandom;
+import java.io.*;
+
+public class Battleship{
+public static void main(String[] args) throws IOException {
+
+      Scanner scn = new Scanner(System.in);
+      SecureRandom rand = new SecureRandom();
+      int num = rand.nextInt(20);//0-19
+      FileInputStream fis = new FileInputStream(/*inset file path here*/);
+      Scanner fileScanner = new Scanner(fis);
+int Counter = 0;
+int CounterWinner = 0;
+
+      String[][] grid = new String[10][10];
+      String[][] gridText = new String[10][10];
+       
+          for(int r = 0; r<10; r++)
+           for(int c=0; c<10; c++)  
+
+            grid[r][c] = "_";
+            
+ int row=0;
+		while(fileScanner.hasNext()){
+			String line = fileScanner.nextLine();
+			String[] parts = line.split("\\,");
+			for(int column=0; column<parts.length; column++)
+				gridText[row][column] = parts[column];
+			
+			row++; 
+		}
+				fileScanner.close();//closes file 
+            
+ //LOOP                
+ boolean done=false;      
+ while(!done){
+ //done = true;
+   //display
+   System.out.print(" "); 
+   for(int c=0; c<10; c++){
+      System.out.printf(" %s",c);
+         }//prints "_"
+   System.out.println();
+         
+for(int r = 0; r<10; r++){   
+String RowLetters = ( "ABCDEFGHIJ");
+
+   
+   System.out.printf("%s" ,RowLetters.charAt(r));
+for(int c=0; c<10; c++)
+  System.out.printf(" %s", grid[r][c]);
+  System.out.println();
+        } //end letters     
+    
+     
+Scanner UserInput = new Scanner(System.in);
+		System.out.println("Enter and row and column [A-J][0-9]: ");
+		String s = UserInput.nextLine();
+      
+		String ROWS =  s.substring(0,1);//converting text to number
+		int COL = s.charAt(1)-'0';
+      
+      int ROW = 0;   
+      int r = 0;
+      int c = 0;
+        switch (ROWS){
+        case "A":
+        ROW = 0;
+        break;
+        
+        case "B":
+        ROW = 1;
+        break;
+        
+        case "C":
+        ROW = 2;
+        break;
+        
+        case "D":
+        ROW = 3;
+        break;
+        
+        case "E":
+        ROW = 4;
+        break;
+        
+        case "F":
+        ROW = 5;
+        break;
+        
+        case "G":
+        ROW = 6;
+        break;
+        
+        case "H":
+        ROW = 7;
+        break;
+        
+        case "I":
+        ROW = 8;
+        break;
+        
+        case "J":
+        ROW = 9;
+        break;
+
+        }//end switch
+        
+        if (grid[COL][ROW].equals("_"));
+      grid[ROW][COL] = gridText[ROW][COL];
+      
+      Counter++;
+      System.out.println(grid[r][c]);
+      
+      if (grid[ROW][COL].equals("1"))
+      CounterWinner++;  
+       
+  if(CounterWinner==17)
+   done=true; 
+        
+   
+}//end while
+System.out.println("YOU WIN THE GAME");
+System.out.println("It took you "+Counter+" guesses");
+
+
+}//end main
+
+   }//end class
